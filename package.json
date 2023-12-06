@@ -1,0 +1,11 @@
+{
+  "name": "fifo-queue",
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "install": "npm install --ignore-scripts",
+    "test": "npm run test --workspaces"
+  }
+}
