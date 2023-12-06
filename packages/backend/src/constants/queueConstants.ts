@@ -1,9 +1,6 @@
-import { Action } from "../types/actionTypes";
-
-
 export const QUEUE_NAME = 'mainQueue';
 
-export const ACTIONS: Action[] = ['SEND_EMAIL', 'SEND_PRIVATE_MESSAGE', 'FIND_LEAD'];
+export const ACTIONS = ['SEND_EMAIL', 'SEND_PRIVATE_MESSAGE', 'FIND_LEAD'] as const;
 
 export const MIN_CREDITS_VARIATION = 0.8;
 

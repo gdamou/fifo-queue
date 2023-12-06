@@ -1,4 +1,4 @@
-import { ActionQueue } from './actionTypes';
+import { Action } from './actionTypes';
 import { Credit } from './creditTypes';
 
 export type QueueStatus = {
@@ -11,5 +11,5 @@ export type QueueStatus = {
         lastResetCreditAt: Date;
         lastActionDequeuedAt: Date;
     };
-    queue: ActionQueue;
+    queue: Action[];
 };

@@ -1,3 +1,3 @@
-export type Action = 'SEND_EMAIL' | 'SEND_PRIVATE_MESSAGE' | 'FIND_LEAD';
+import { ACTIONS } from "../constants/queueConstants";
 
-export type ActionQueue = Action[];
+export type Action =  typeof ACTIONS[number];

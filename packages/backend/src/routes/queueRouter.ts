@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express';
 import { addActionToQueue, getQueueStatus } from '../services/queueService';
+import { validateActionMiddleware } from '../middlewares/validateAction';
+import { queueStatusSchema } from '../schemas/queueStatusSchema';
 
 const queueRouter = express.Router();
 
-queueRouter.post('/queue/add', async (req: Request, res: Response) => {
+queueRouter.post('/add', validateActionMiddleware, async (req: Request, res: Response) => {
     try {
         const { action } = req.body;
 
@@ -20,7 +22,7 @@ queueRouter.post('/queue/add', async (req: Request, res: Response) => {
     }
 });
 
-queueRouter.get('/queue/status', async (req: Request, res: Response) => {
+queueRouter.get('/status', async (req: Request, res: Response) => {
     try {
         const queueStatus = await getQueueStatus();
         if (!queueStatus) {
@@ -28,7 +30,13 @@ queueRouter.get('/queue/status', async (req: Request, res: Response) => {
             return;
         }
 
-        res.status(200).json(queueStatus);
+        const validationResult = queueStatusSchema.safeParse(queueStatus);
+
+        if (validationResult.success) {
+            res.status(200).json(validationResult.data);
+        } else {
+            res.status(500).json({ error: validationResult.error });
+        }
     } catch (error) {
         res.status(500).json({ error: 'Error while retrieving queue status.' });
     }
