@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "install": "npm install --ignore-scripts",
-    "test": "npm run test --workspaces"
+    "test": "cd packages/backend && npm test",
+    "dev:backend": "cd packages/backend && npm run dev"
   }
 }
