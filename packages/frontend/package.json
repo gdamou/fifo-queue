@@ -11,11 +11,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ark-ui/react": "^1.1.0",
+    "lucide-react": "^0.294.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-use-websocket": "^4.5.0"
   },
   "devDependencies": {
     "@pandacss/dev": "^0.20.1",
+    "@park-ui/panda-preset": "^0.25.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
