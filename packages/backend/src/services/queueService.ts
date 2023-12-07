@@ -6,6 +6,10 @@ import { Credit } from '../types/creditTypes';
 import { QueueStatus } from '../types/queueTypes';
 import { queueStatusSchema } from '../schemas/queueStatusSchema';
 
+export const setQueueStatus = async (queueStatus: QueueStatus) => {
+    await redisClient.set(QUEUE_NAME, JSON.stringify(queueStatus));
+};
+
 export const initializeQueue = async () => {
     const randomizedCredits = getRandomizedCredits();
     const queueStatus: QueueStatus = {
@@ -21,7 +25,7 @@ export const initializeQueue = async () => {
         queue: [],
     };
 
-    await redisClient.set(QUEUE_NAME, JSON.stringify(queueStatus));
+    await setQueueStatus(queueStatus);
 };
 
 const getRandomizedCredits = () => {
@@ -51,21 +55,21 @@ export const refreshCredits = async (queueStatus: QueueStatus) => {
     credits.total = randomizedCredits;
     credits.remaining = randomizedCredits;
     details.lastResetCreditAt = new Date();
-    await redisClient.set(QUEUE_NAME, JSON.stringify(queueStatus));
+    await setQueueStatus(queueStatus);
 };
 
 export const addActionToQueue = async (queueStatus: QueueStatus, action: Action) => {
     const { queue } = queueStatus;
     queue.push(action);
-    await redisClient.set(QUEUE_NAME, JSON.stringify(queueStatus));
+    await setQueueStatus(queueStatus);
     return queueStatus;
 };
+
 export const getQueueStatus = async (): Promise<QueueStatus | undefined> => {
     const queueStatus = await redisClient.get(QUEUE_NAME);
     if (queueStatus !== null) {
         try {
             const parsedQueueStatus = JSON.parse(queueStatus);
-            // Validate and parse the JSON data directly with Zod
             return queueStatusSchema.parse(parsedQueueStatus);
         } catch (error) {
             if (error instanceof z.ZodError) {
@@ -94,7 +98,7 @@ export const removeFirstAvailableAction = async (queueStatus: QueueStatus): Prom
 
     details.lastActionDequeuedAt = new Date();
     details.credits.remaining[action] -= 1;
-    await redisClient.set(QUEUE_NAME, JSON.stringify(queueStatus));
+    await setQueueStatus(queueStatus);
     return queueStatus;
 };
 
