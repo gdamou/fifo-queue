@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ACTIONS } from '../constants/queueConstants';
+import { ACTIONS } from '../actions';
 
 export const actionSchema = z.object({
     action: z.enum(ACTIONS),

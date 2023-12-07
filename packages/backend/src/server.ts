@@ -6,7 +6,7 @@ import app from './app';
 import { redisClient } from './clients/redisClient';
 import { getQueueStatus, initializeQueue, refreshCredits, removeFirstAvailableAction } from './services/queueService';
 import { initWebSocketServer, sendToWebSocket } from './services/websocketService';
-import { QueueStatus } from './types/queueTypes';
+import { QueueStatus } from '@fifo-queue/shared';
 // import { QUEUE_NAME } from './constants/queueConstants';
 
 const httpWss = http.createServer(app);
@@ -43,6 +43,7 @@ setInterval(async () => {
     const queueStatus = (await getQueueStatus()) as QueueStatus;
 
     const action = await removeFirstAvailableAction(queueStatus);
+
     if (action) {
         sendToWebSocket(JSON.stringify(queueStatus));
         console.log('✅ Sent action to WebSocket');

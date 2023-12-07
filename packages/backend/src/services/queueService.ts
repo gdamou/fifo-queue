@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import { redisClient } from '../clients/redisClient';
 import { MAX_CREDITS_PER_ACTION, MIN_CREDITS_VARIATION, QUEUE_NAME } from '../constants/queueConstants';
-import { Action } from '../types/actionTypes';
-import { Credit } from '../types/creditTypes';
-import { QueueStatus } from '../types/queueTypes';
-import { queueStatusSchema } from '../schemas/queueStatusSchema';
+import { Action } from '@fifo-queue/shared';
+import { Credit } from '@fifo-queue/shared';
+import { QueueStatus } from '@fifo-queue/shared';
+import { queueStatusSchema } from '@fifo-queue/shared';
 
 export const setQueueStatus = async (queueStatus: QueueStatus) => {
     await redisClient.set(QUEUE_NAME, JSON.stringify(queueStatus));
@@ -37,7 +37,7 @@ const getRandomizedCredits = () => {
 
     for (const action in MAX_CREDITS_PER_ACTION) {
         if (MAX_CREDITS_PER_ACTION.hasOwnProperty(action)) {
-            const key = action as keyof Credit;
+            const key = action as keyof typeof MAX_CREDITS_PER_ACTION;
             const maxCredit = MAX_CREDITS_PER_ACTION[key];
             const minCredit = Math.ceil(MIN_CREDITS_VARIATION * maxCredit);
             randomizedCredits[key] = Math.floor(Math.random() * (maxCredit - minCredit + 1)) + minCredit;

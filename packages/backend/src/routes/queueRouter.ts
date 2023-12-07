@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { addActionToQueue, getQueueStatus } from '../services/queueService';
 import { validateActionMiddleware } from '../middlewares/validateAction';
-import { queueStatusSchema } from '../schemas/queueStatusSchema';
+import { queueStatusSchema } from '@fifo-queue/shared';
 
 const queueRouter = express.Router();
 

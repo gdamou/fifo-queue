@@ -1,8 +1,7 @@
 import * as queueService from '../services/queueService';
 import { QUEUE_NAME } from '../constants/queueConstants';
-import { QueueStatus } from '../types/queueTypes';
+import { QueueStatus } from '@fifo-queue/shared';
 import { deepCopy } from '../utils/deepCopy';
-import { mock } from 'node:test';
 
 jest.mock('../clients/redisClient', () => ({
     ...jest.requireActual('../clients/redisClient'), // Import the actual implementations of other functions

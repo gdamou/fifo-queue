@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ACTIONS } from '../constants/queueConstants';
+import { ACTIONS } from '../actions';
 import { creditSchema } from './creditSchema';
 
 // Since we are using zod, we can use preprocess to convert string from JSON string to Date

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ACTIONS } from '../constants/queueConstants';
+import { ACTIONS } from '../actions';
 import { Action } from '../types/actionTypes';
 
 export const creditSchema = z.object(
