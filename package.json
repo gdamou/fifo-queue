@@ -7,9 +7,17 @@
   "scripts": {
     "install": "npm install --ignore-scripts",
     "test": "cd packages/backend && npm test",
-    "dev:backend": "cd packages/backend && npm run dev"
+    "build:shared": "npm run build --prefix packages/shared",
+    "build:backend": "npm run build --prefix packages/backend",
+    "build:frontend": "npm run build --prefix packages/frontend",
+    "start:backend": "npm run start --prefix packages/backend",
+    "start:frontend": "npm run preview --prefix packages/frontend",
+    "start": "concurrently \"npm run build:shared && npm run build:backend && npm run start:backend\" \"npm run build:frontend && npm run start:frontend\"",
+    "dev:backend": "cd packages/backend && npm run dev",
+    "dev:frontend": "cd packages/frontend && npm run dev"
   },
-  "dependencies": {
-    "cors": "^2.8.5"
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2"
   }
 }

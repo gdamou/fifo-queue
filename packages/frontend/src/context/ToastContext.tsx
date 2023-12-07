@@ -21,7 +21,6 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     // It was not needed in the technical test, but I wanted to make a little toaster for success/error on adding actions to the queue
     const [Toaster, toast] = createToaster({
         placement: 'bottom-start',
-        duration: 50000,
         render(toast) {
             const color = toast.title === 'Success' ? 'success' : 'error';
             const bgColor = toast.title === 'Success' ? 'background.success' : 'background.error';
