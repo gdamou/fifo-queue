@@ -7,8 +7,10 @@ This project aims to create a FIFO queue using React, TypeScript, and Express. I
 
 # How to Run the Project
 
+**You need to have Node 18 or higher installed on your machine.**
+
 1. Clone this repository.
-2. Move the `env` file I sent you by email to `/packages/backend`. It will give you access to Redis.
+2. Move the `.env` file I sent you by email to `/packages/backend`. It will give you access to Redis.
 3. Run `npm start` at the root of the project. This will ensure everything is installed and will start both the frontend and backend.
 
 # How to Run Tests
